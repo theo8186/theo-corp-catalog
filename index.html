@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE-O CORPORATION — Korean Pet Snack Export Catalog</title>
+<meta name="description" content="THE-O CORPORATION export catalog for overseas buyers — Korean-made pet snacks for dogs and cats, FOB Korea.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#top" class="brand">
+      <span class="brand-logo-chip"><img src="assets/logo.png" alt="THE ORGANIC logo"></span>
+      <span class="brand-text">
+        <span class="name">THE-O CORPORATION</span>
+      </span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="#catalog">Catalog</a>
+      <a href="#terms">Terms</a>
+      <a href="#gate" class="cta">Buyer Access</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="hero-eyebrow">Export Catalog · 2026</span>
+          <h1>Korean pet snacks,<br><em>made for the world.</em></h1>
+          <p class="hero-sub">THE-O CORPORATION sources and exports Natural Core pet treats — dental chews, jerky, and functional snacks for dogs and cats — to trusted partners worldwide, FOB Korea.</p>
+        </div>
+        <div class="hero-letterhead">
+          <strong>THE-O CORPORATION</strong>
+          No. 5 Tancheon-ro 307 Beon-gil,<br>
+          (624-2 Sasong-dong), Sujeong-gu,<br>
+          Seongnam-si, Gyeonggi-do, Korea<br><br>
+          TEL&nbsp; +82) 31-713-4436<br>
+          FAX&nbsp; +82) 31-713-4406
+        </div>
+      </div>
+    </div>
+    <div class="barcode-strip"></div>
+  </section>
+
+  <!-- ============ FACTS ============ -->
+  <section class="facts">
+    <div class="wrap">
+      <div class="fact"><div class="num" id="factTotal">–</div><div class="label">SKUs listed</div></div>
+      <div class="fact"><div class="num" id="factDog">–</div><div class="label">Dog snacks</div></div>
+      <div class="fact"><div class="num" id="factCat">–</div><div class="label">Cat snacks</div></div>
+      <div class="fact"><div class="num">FOB</div><div class="label">Korea main port</div></div>
+    </div>
+  </section>
+
+  <!-- ============ BUYER ACCESS GATE ============ -->
+  <section class="gate section" id="gate">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="section-eyebrow">Buyer access</span>
+          <h2>Log in to view the catalog</h2>
+          <p>Full product photos, pricing details, and spec sheets are reserved for registered buyers. Existing buyers can log in below; new partners can apply for access.</p>
+        </div>
+      </div>
+
+      <div class="gate-card">
+        <div class="gate-tabs">
+          <button class="gate-tab active" data-tab="login">Log in</button>
+          <button class="gate-tab" data-tab="register">Become a buyer</button>
+        </div>
+
+        <!-- ---- LOGIN PANEL ---- -->
+        <div class="gate-panel active" id="panelLogin">
+          <form id="loginForm" novalidate>
+            <div class="field">
+              <label for="loginEmail">Email</label>
+              <input type="email" id="loginEmail" name="loginEmail" autocomplete="username" required>
+            </div>
+            <div class="field">
+              <label for="loginPassword">Password</label>
+              <input type="password" id="loginPassword" name="loginPassword" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="submit-btn" id="loginBtn">Log in</button>
+            <div class="form-msg" id="loginMsg"></div>
+          </form>
+          <p class="gate-switch">New buyer? <button type="button" data-tab="register">Apply for access</button></p>
+        </div>
+
+        <!-- ---- REGISTER PANEL ---- -->
+        <div class="gate-panel" id="panelRegister">
+          <div class="steps compact">
+            <div class="step">
+              <div class="dot">1</div>
+              <div class="body"><strong>Submit your details</strong><span>Company, contact person, country, and a password for your account.</span></div>
+            </div>
+            <div class="step">
+              <div class="dot">2</div>
+              <div class="body"><strong>We review your application</strong><span>Our team receives it by email and verifies your business.</span></div>
+            </div>
+            <div class="step">
+              <div class="dot">3</div>
+              <div class="body"><strong>Approval &amp; log in</strong><span>Once approved, log in above with your email and password.</span></div>
+            </div>
+          </div>
+
+          <form id="registerForm" novalidate>
+            <div class="form-row">
+              <div class="field">
+                <label for="company">Company name</label>
+                <input type="text" id="company" name="company" required>
+              </div>
+              <div class="field">
+                <label for="contact">Contact person</label>
+                <input type="text" id="contact" name="contact" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+            </div>
+            <div class="field">
+              <label for="email">Business email</label>
+              <input type="email" id="email" name="email" autocomplete="username" required>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" required>
+              </div>
+              <div class="field">
+                <label for="passwordConfirm">Confirm password</label>
+                <input type="password" id="passwordConfirm" name="passwordConfirm" autocomplete="new-password" minlength="8" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="message">Message (optional)</label>
+              <textarea id="message" name="message" placeholder="Products of interest, order volume, etc."></textarea>
+            </div>
+            <label class="consent">
+              <input type="checkbox" required>
+              I confirm this application is submitted on behalf of a genuine business and I agree to be contacted by THE-O CORPORATION regarding this application.
+            </label>
+            <button type="submit" class="submit-btn" id="submitBtn">Submit application</button>
+            <div class="form-msg" id="formMsg"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATALOG (locked until login) ============ -->
+  <section class="catalog section" id="catalog">
+    <div class="wrap">
+
+      <div class="locked-state" id="lockedState">
+        <div class="locked-icon" aria-hidden="true">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="1.5" stroke="currentColor" stroke-width="1.7"/><path d="M7 10V7a5 5 0 0110 0v3" stroke="currentColor" stroke-width="1.7"/></svg>
+        </div>
+        <p>Log in above to view product photos, SKUs, and spec sheets.</p>
+      </div>
+
+      <div class="catalog-unlocked" id="catalogUnlocked" hidden>
+        <div class="section-head">
+          <div>
+            <span class="section-eyebrow">Product line</span>
+            <h2>Full catalog</h2>
+            <p>Tap any photo to open the live product page, or Details for the full spec sheet.</p>
+          </div>
+          <button class="logout-btn" id="logoutBtn" type="button">Log out</button>
+        </div>
+
+        <div class="filter-bar">
+          <div class="filter-pills">
+            <button class="pill active" data-species="ALL">All</button>
+            <button class="pill" data-species="DOG">Dog</button>
+            <button class="pill" data-species="CAT">Cat</button>
+          </div>
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input type="text" id="searchInput" placeholder="Search products…">
+          </div>
+        </div>
+        <div class="result-count" id="resultCount"></div>
+
+        <div class="grid" id="productGrid"><!-- injected by app.js --></div>
+        <div class="empty-state" id="emptyState">No products match your filters.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ TERMS ============ -->
+  <section class="terms" id="terms">
+    <div class="wrap">
+      <h3>Terms &amp; conditions</h3>
+      <div class="terms-grid">
+        <div class="term-item"><span class="n">01</span>Price terms: FOB Korea main port</div>
+        <div class="term-item"><span class="n">02</span>Currency: US Dollar</div>
+        <div class="term-item"><span class="n">03</span>Packing: Export standard packing</div>
+        <div class="term-item"><span class="n">04</span>Delivery: Within 60 days</div>
+        <div class="term-item"><span class="n">05</span>Payment: T/T remittance prior to shipment</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <span class="brand-logo-chip"><img src="assets/logo.png" alt="THE ORGANIC logo"></span>
+          <span class="brand-text"><span class="name">THE-O CORPORATION</span></span>
+        </a>
+        <p>Exporting Korean-made pet snacks to trusted partners worldwide. Quality, traceability, and reliable delivery on every order.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <div>No. 5 Tancheon-ro 307 Beon-gil,</div>
+        <div>(624-2 Sasong-dong), Sujeong-gu,</div>
+        <div>Seongnam-si, Gyeonggi-do, Korea</div>
+        <div>TEL +82) 31-713-4436</div>
+        <div>FAX +82) 31-713-4406</div>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <a href="#catalog">Full catalog</a>
+        <a href="#terms">Terms &amp; conditions</a>
+        <a href="#gate">Buyer login / access</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 THE-O CORPORATION. All rights reserved.</span>
+      <span>Export catalog — Natural Core pet snacks</span>
+    </div>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="products_data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
