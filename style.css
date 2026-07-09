@@ -239,6 +239,40 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .hero .barcode-strip{ color:var(--pine); }
 
+.hero-banner{
+  border-radius:6px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-top:24px;
+  background:var(--white);
+}
+.hero-banner img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.hero-letterhead-row{
+  padding:20px 0 40px;
+}
+.hero-letterhead-row .hero-letterhead{
+  border-left:2px solid var(--rust);
+  padding-left:16px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  line-height:1.8;
+  color:var(--ink-soft);
+}
+.hero-letterhead-row .hero-letterhead strong{
+  font-family:var(--font-display);
+  font-weight:600;
+  color:var(--pine);
+  margin-right:10px;
+  font-size:14px;
+}
+@media (max-width:640px){
+  .hero-letterhead-row .hero-letterhead strong{ display:block; margin-bottom:6px; }
+}
+
 /* ============================================================
    STATS / QUICK FACTS
    ============================================================ */
@@ -304,12 +338,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .catalog{ background:var(--cream); }
 
 .filter-bar{
-  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  display:flex; align-items:center; gap:22px; flex-wrap:wrap;
   padding:18px 22px;
   background:var(--white);
   border:1px solid var(--line);
   border-radius:var(--radius);
   margin-bottom:36px;
+}
+.filter-group{
+  display:flex; align-items:center; gap:10px;
+}
+.filter-label{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--sage);
+  flex:none;
 }
 .filter-pills{ display:flex; gap:8px; flex-wrap:wrap; }
 .pill{
@@ -474,6 +519,43 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color:var(--white);
 }
 .btn-solid:hover{ background:var(--rust-light); border-color:var(--rust-light); }
+
+.origin-tag{
+  font-family:var(--font-mono);
+  font-size:9.5px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  border:1px solid var(--line);
+  padding:2px 7px;
+  border-radius:3px;
+}
+
+.variant-table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  margin:2px 0 4px;
+}
+.variant-table th{
+  text-align:left;
+  font-weight:600;
+  color:var(--sage);
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  font-size:9px;
+  padding:0 4px 4px 0;
+  border-bottom:1px solid var(--line);
+}
+.variant-table td{
+  padding:4px 4px 4px 0;
+  color:var(--ink);
+  border-bottom:1px dashed var(--line);
+}
+.variant-table tr:last-child td{ border-bottom:none; }
+.variant-price{ color:var(--rust); font-weight:600; }
+.card.dryfood .card-title{ min-height:auto; }
 
 .empty-state{
   text-align:center;

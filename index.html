@@ -33,19 +33,15 @@
   <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <span class="hero-eyebrow">Export Catalog · 2026</span>
-          <h1>Korean pet snacks,<br><em>made for the world.</em></h1>
-          <p class="hero-sub">THE-O CORPORATION sources and exports Natural Core pet treats — dental chews, jerky, and functional snacks for dogs and cats — to trusted partners worldwide, FOB Korea.</p>
-        </div>
+      <span class="hero-eyebrow">Export Catalog · 2026</span>
+      <div class="hero-banner">
+        <img src="assets/hero.png" alt="Your Trusted Partner in Pet Food, Worldwide">
+      </div>
+      <div class="hero-letterhead-row">
         <div class="hero-letterhead">
           <strong>THE-O CORPORATION</strong>
-          No. 5 Tancheon-ro 307 Beon-gil,<br>
-          (624-2 Sasong-dong), Sujeong-gu,<br>
-          Seongnam-si, Gyeonggi-do, Korea<br><br>
-          TEL&nbsp; +82) 31-713-4436<br>
-          FAX&nbsp; +82) 31-713-4406
+          No. 5 Tancheon-ro 307 Beon-gil,&nbsp; (624-2 Sasong-dong), Sujeong-gu,&nbsp; Seongnam-si, Gyeonggi-do, Korea
+          &nbsp;·&nbsp; TEL +82) 31-713-4436 &nbsp;·&nbsp; FAX +82) 31-713-4406
         </div>
       </div>
     </div>
@@ -55,10 +51,10 @@
   <!-- ============ FACTS ============ -->
   <section class="facts">
     <div class="wrap">
-      <div class="fact"><div class="num" id="factTotal">–</div><div class="label">SKUs listed</div></div>
-      <div class="fact"><div class="num" id="factDog">–</div><div class="label">Dog snacks</div></div>
-      <div class="fact"><div class="num" id="factCat">–</div><div class="label">Cat snacks</div></div>
-      <div class="fact"><div class="num">FOB</div><div class="label">Korea main port</div></div>
+      <div class="fact"><div class="num" id="factTotal">–</div><div class="label">Products listed</div></div>
+      <div class="fact"><div class="num" id="factDog">–</div><div class="label">Dog items</div></div>
+      <div class="fact"><div class="num" id="factCat">–</div><div class="label">Cat items</div></div>
+      <div class="fact"><div class="num" id="factOrigins">2</div><div class="label">Countries of origin</div></div>
     </div>
   </section>
 
@@ -186,10 +182,29 @@
         </div>
 
         <div class="filter-bar">
-          <div class="filter-pills">
-            <button class="pill active" data-species="ALL">All</button>
-            <button class="pill" data-species="DOG">Dog</button>
-            <button class="pill" data-species="CAT">Cat</button>
+          <div class="filter-group">
+            <span class="filter-label">Type</span>
+            <div class="filter-pills">
+              <button class="pill active" data-type="ALL">All</button>
+              <button class="pill" data-type="snack">Snacks</button>
+              <button class="pill" data-type="dryfood">Dry Food</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Species</span>
+            <div class="filter-pills">
+              <button class="pill active" data-species="ALL">All</button>
+              <button class="pill" data-species="DOG">Dog</button>
+              <button class="pill" data-species="CAT">Cat</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Origin</span>
+            <div class="filter-pills">
+              <button class="pill active" data-origin="ALL">All</button>
+              <button class="pill" data-origin="Korea">Korea</button>
+              <button class="pill" data-origin="Thailand">Thailand</button>
+            </div>
           </div>
           <div class="search-box">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>

@@ -85,4 +85,13 @@ google-apps-script/
 
 ## 5. 제품 데이터 갱신
 
+카탈로그에는 현재 세 가지 데이터 소스가 통합되어 있습니다:
+- 한국산 간식 (`snack_information_korea.xlsx`) — 34개
+- 태국산 간식 (`Snack_Information_thailand.xlsx`) — 52개
+- 국내산 Dry Food, 강아지/고양이 (`dry_food_information.xlsx`) — 39개 제품군 (사이즈별 가격 옵션 포함)
+
 엑셀 파일이 업데이트되면 `products_data.js`를 다시 생성해야 이미지/URL이 반영됩니다. 업데이트된 엑셀 파일을 다시 보내주시면 재생성해 드리겠습니다.
+
+## 6. 히어로 배너 이미지 교체
+
+메인 화면 상단 배너는 `assets/hero.png` 파일입니다. 다른 이미지로 교체하려면 같은 파일명으로 덮어쓰면 됩니다 (권장 비율 약 2.4:1, 가로 1500px 이상).

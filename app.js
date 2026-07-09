@@ -6,7 +6,7 @@
   "use strict";
 
   var SESSION_KEY = "theo_buyer_session";
-  var state = { species: "ALL", query: "" };
+  var state = { species: "ALL", type: "ALL", origin: "ALL", query: "" };
   var grid, emptyState, resultCount;
   var gridBuilt = false;
 
@@ -41,28 +41,79 @@
   }
 
   /* ---------- product cards ---------- */
-  function cardTemplate(p) {
+  function snackCard(p) {
     var qtyLabel = /\d/.test(String(p.qty)) && !/[a-zA-Z]/.test(String(p.qty)) ? p.qty + "g" : p.qty;
     return (
-      '<article class="card reveal" data-species="' + escapeHtml(p.species) + '" data-search="' +
-      escapeHtml((p.description + " " + p.brand + " " + p.barcode).toLowerCase()) + '">' +
-        '<a class="card-photo" href="' + escapeHtml(p.photoUrl) + '" target="_blank" rel="noopener">' +
-          '<span class="species-tag ' + escapeHtml(p.species) + '">' + escapeHtml(p.species) + '</span>' +
-          '<img src="' + p.image + '" alt="' + escapeHtml(p.description) + '" loading="lazy">' +
-          '<span class="zoom-tag">View product page &#8599;</span>' +
-        '</a>' +
-        '<div class="card-body">' +
-          '<div class="card-brand">' + escapeHtml(p.brand) + '</div>' +
-          '<div class="card-title">' + escapeHtml(p.description) + '</div>' +
-          '<div class="card-meta">' +
-            '<span class="barcode-num">' + escapeHtml(p.barcode) + '</span>' +
-            '<span class="qty">' + escapeHtml(qtyLabel) + '</span>' +
-          '</div>' +
-          '<div class="card-actions">' +
-            '<a class="btn-ghost" href="' + escapeHtml(p.detailsUrl) + '" target="_blank" rel="noopener">Details</a>' +
-            '<a class="btn-solid" href="' + escapeHtml(p.photoUrl) + '" target="_blank" rel="noopener">Product page</a>' +
-          '</div>' +
+      '<a class="card-photo" href="' + escapeHtml(p.photoUrl) + '" target="_blank" rel="noopener">' +
+        '<span class="species-tag ' + escapeHtml(p.species) + '">' + escapeHtml(p.species) + '</span>' +
+        '<img src="' + p.image + '" alt="' + escapeHtml(p.description) + '" loading="lazy">' +
+        '<span class="zoom-tag">View product page &#8599;</span>' +
+      '</a>' +
+      '<div class="card-body">' +
+        '<div class="card-brand">' + escapeHtml(p.brand) + ' &nbsp;·&nbsp; <span class="origin-tag">' + escapeHtml(p.origin) + '</span></div>' +
+        '<div class="card-title">' + escapeHtml(p.description) + '</div>' +
+        '<div class="card-meta">' +
+          '<span class="barcode-num">' + escapeHtml(p.barcode) + '</span>' +
+          '<span class="qty">' + escapeHtml(qtyLabel) + '</span>' +
         '</div>' +
+        '<div class="card-actions">' +
+          (p.detailsUrl ? '<a class="btn-ghost" href="' + escapeHtml(p.detailsUrl) + '" target="_blank" rel="noopener">Details</a>' : '') +
+          (p.photoUrl ? '<a class="btn-solid" href="' + escapeHtml(p.photoUrl) + '" target="_blank" rel="noopener">Product page</a>' : '') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function dryfoodCard(p) {
+    var rows = (p.variants || []).map(function (v) {
+      var price = (v.unitPrice !== null && v.unitPrice !== undefined) ? "$" + Number(v.unitPrice).toFixed(2) : "—";
+      return (
+        '<tr>' +
+          '<td>' + escapeHtml(v.weight) + '</td>' +
+          '<td>' + escapeHtml(v.innerPackage || "—") + '</td>' +
+          '<td class="variant-price">' + price + '</td>' +
+          '<td>' + escapeHtml(v.unitsInBox || "—") + '</td>' +
+        '</tr>'
+      );
+    }).join("");
+
+    return (
+      (p.image
+        ? '<a class="card-photo" href="' + escapeHtml(p.photoUrl || "#") + '" target="_blank" rel="noopener">' +
+            '<span class="species-tag ' + escapeHtml(p.species) + '">' + escapeHtml(p.species) + '</span>' +
+            '<img src="' + p.image + '" alt="' + escapeHtml(p.description) + '" loading="lazy">' +
+            '<span class="zoom-tag">View product page &#8599;</span>' +
+          '</a>'
+        : '<div class="card-photo"><span class="species-tag ' + escapeHtml(p.species) + '">' + escapeHtml(p.species) + '</span></div>') +
+      '<div class="card-body">' +
+        '<div class="card-brand">' + escapeHtml(p.brand) + ' &nbsp;·&nbsp; <span class="origin-tag">' + escapeHtml(p.origin) + '</span></div>' +
+        '<div class="card-title">' + escapeHtml(p.description) + '</div>' +
+        '<table class="variant-table">' +
+          '<thead><tr><th>Weight</th><th>Package</th><th>Unit price</th><th>Units/box</th></tr></thead>' +
+          '<tbody>' + rows + '</tbody>' +
+        '</table>' +
+        '<div class="card-actions">' +
+          (p.detailsUrl ? '<a class="btn-ghost" href="' + escapeHtml(p.detailsUrl) + '" target="_blank" rel="noopener">Details</a>' : '') +
+          (p.photoUrl ? '<a class="btn-solid" href="' + escapeHtml(p.photoUrl) + '" target="_blank" rel="noopener">Product page</a>' : '') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function cardTemplate(p) {
+    var isDry = p.type === "dryfood";
+    var searchBlob = [
+      p.description, p.brand,
+      isDry ? (p.variants || []).map(function (v) { return v.barcode; }).join(" ") : p.barcode
+    ].join(" ").toLowerCase();
+
+    return (
+      '<article class="card ' + (isDry ? "dryfood" : "snack") + ' reveal" ' +
+        'data-species="' + escapeHtml(p.species) + '" ' +
+        'data-type="' + escapeHtml(p.type) + '" ' +
+        'data-origin="' + escapeHtml(p.origin) + '" ' +
+        'data-search="' + escapeHtml(searchBlob) + '">' +
+        (isDry ? dryfoodCard(p) : snackCard(p)) +
       '</article>'
     );
   }
@@ -73,8 +124,10 @@
     var visible = 0;
     Array.prototype.forEach.call(grid.children, function (card) {
       var matchesSpecies = state.species === "ALL" || card.getAttribute("data-species") === state.species;
+      var matchesType = state.type === "ALL" || card.getAttribute("data-type") === state.type;
+      var matchesOrigin = state.origin === "ALL" || card.getAttribute("data-origin") === state.origin;
       var matchesQuery = !q || card.getAttribute("data-search").indexOf(q) !== -1;
-      var show = matchesSpecies && matchesQuery;
+      var show = matchesSpecies && matchesType && matchesOrigin && matchesQuery;
       card.style.display = show ? "" : "none";
       if (show) visible++;
     });
@@ -91,15 +144,21 @@
   }
 
   function initFilters() {
-    var pills = document.querySelectorAll(".pill[data-species]");
-    pills.forEach(function (pill) {
-      pill.addEventListener("click", function () {
-        pills.forEach(function (p) { p.classList.remove("active"); });
-        pill.classList.add("active");
-        state.species = pill.getAttribute("data-species");
-        render();
+    function wirePillGroup(attr) {
+      var pills = document.querySelectorAll(".pill[data-" + attr + "]");
+      pills.forEach(function (pill) {
+        pill.addEventListener("click", function () {
+          pills.forEach(function (p) { p.classList.remove("active"); });
+          pill.classList.add("active");
+          state[attr] = pill.getAttribute("data-" + attr);
+          render();
+        });
       });
-    });
+    }
+    wirePillGroup("species");
+    wirePillGroup("type");
+    wirePillGroup("origin");
+
     var search = document.getElementById("searchInput");
     if (search) {
       search.addEventListener("input", function () {
