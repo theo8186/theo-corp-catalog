@@ -66,12 +66,10 @@
 
   function dryfoodCard(p) {
     var rows = (p.variants || []).map(function (v) {
-      var price = (v.unitPrice !== null && v.unitPrice !== undefined) ? "$" + Number(v.unitPrice).toFixed(2) : "—";
       return (
         '<tr>' +
           '<td>' + escapeHtml(v.weight) + '</td>' +
           '<td>' + escapeHtml(v.innerPackage || "—") + '</td>' +
-          '<td class="variant-price">' + price + '</td>' +
           '<td>' + escapeHtml(v.unitsInBox || "—") + '</td>' +
         '</tr>'
       );
@@ -89,7 +87,7 @@
         '<div class="card-brand">' + escapeHtml(p.brand) + ' &nbsp;·&nbsp; <span class="origin-tag">' + escapeHtml(p.origin) + '</span></div>' +
         '<div class="card-title">' + escapeHtml(p.description) + '</div>' +
         '<table class="variant-table">' +
-          '<thead><tr><th>Weight</th><th>Package</th><th>Unit price</th><th>Units/box</th></tr></thead>' +
+          '<thead><tr><th>Weight</th><th>Package</th><th>Units/box</th></tr></thead>' +
           '<tbody>' + rows + '</tbody>' +
         '</table>' +
         '<div class="card-actions">' +
