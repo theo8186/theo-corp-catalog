@@ -29,15 +29,15 @@
     });
   }
 
-  /* ---------- session (client-side only — see README for limitations) ---------- */
+  /* ---------- session (per-browser-session only; cleared when the tab/window closes) ---------- */
   function saveSession(email) {
-    try { localStorage.setItem(SESSION_KEY, email); } catch (e) { /* ignore */ }
+    try { sessionStorage.setItem(SESSION_KEY, email); } catch (e) { /* ignore */ }
   }
   function readSession() {
-    try { return localStorage.getItem(SESSION_KEY); } catch (e) { return null; }
+    try { return sessionStorage.getItem(SESSION_KEY); } catch (e) { return null; }
   }
   function clearSession() {
-    try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* ignore */ }
+    try { sessionStorage.removeItem(SESSION_KEY); } catch (e) { /* ignore */ }
   }
 
   /* ---------- product cards ---------- */
