@@ -6,9 +6,16 @@
   "use strict";
 
   var SESSION_KEY = "theo_buyer_session";
-  var state = { species: "ALL", type: "ALL", origin: "ALL", query: "" };
+  var state = { species: "ALL", type: "ALL", origin: "ALL", isNew: "ALL", query: "" };
   var grid, emptyState, resultCount;
   var gridBuilt = false;
+
+  function speciesClass(species) {
+    var s = String(species || "");
+    if (s === "DOG") return "DOG";
+    if (s === "CAT") return "CAT";
+    return "MULTI"; // e.g. "DOG & CAT"
+  }
 
   function escapeHtml(str) {
     return String(str == null ? "" : str).replace(/[&<>"']/g, function (c) {
@@ -45,7 +52,8 @@
     var qtyLabel = /\d/.test(String(p.qty)) && !/[a-zA-Z]/.test(String(p.qty)) ? p.qty + "g" : p.qty;
     return (
       '<a class="card-photo" href="' + escapeHtml(p.photoUrl) + '" target="_blank" rel="noopener">' +
-        '<span class="species-tag ' + escapeHtml(p.species) + '">' + escapeHtml(p.species) + '</span>' +
+        '<span class="species-tag ' + speciesClass(p.species) + '">' + escapeHtml(p.species) + '</span>' +
+        (p.isNew ? '<span class="new-badge">NEW</span>' : '') +
         '<img src="' + p.image + '" alt="' + escapeHtml(p.description) + '" loading="lazy">' +
         '<span class="zoom-tag">View product page &#8599;</span>' +
       '</a>' +
@@ -78,11 +86,12 @@
     return (
       (p.image
         ? '<a class="card-photo" href="' + escapeHtml(p.photoUrl || "#") + '" target="_blank" rel="noopener">' +
-            '<span class="species-tag ' + escapeHtml(p.species) + '">' + escapeHtml(p.species) + '</span>' +
+            '<span class="species-tag ' + speciesClass(p.species) + '">' + escapeHtml(p.species) + '</span>' +
+            (p.isNew ? '<span class="new-badge">NEW</span>' : '') +
             '<img src="' + p.image + '" alt="' + escapeHtml(p.description) + '" loading="lazy">' +
             '<span class="zoom-tag">View product page &#8599;</span>' +
           '</a>'
-        : '<div class="card-photo"><span class="species-tag ' + escapeHtml(p.species) + '">' + escapeHtml(p.species) + '</span></div>') +
+        : '<div class="card-photo"><span class="species-tag ' + speciesClass(p.species) + '">' + escapeHtml(p.species) + '</span></div>') +
       '<div class="card-body">' +
         '<div class="card-brand">' + escapeHtml(p.brand) + ' &nbsp;·&nbsp; <span class="origin-tag">' + escapeHtml(p.origin) + '</span></div>' +
         '<div class="card-title">' + escapeHtml(p.description) + '</div>' +
@@ -110,6 +119,7 @@
         'data-species="' + escapeHtml(p.species) + '" ' +
         'data-type="' + escapeHtml(p.type) + '" ' +
         'data-origin="' + escapeHtml(p.origin) + '" ' +
+        'data-new="' + (p.isNew ? "true" : "false") + '" ' +
         'data-search="' + escapeHtml(searchBlob) + '">' +
         (isDry ? dryfoodCard(p) : snackCard(p)) +
       '</article>'
@@ -121,11 +131,13 @@
     var q = state.query.trim().toLowerCase();
     var visible = 0;
     Array.prototype.forEach.call(grid.children, function (card) {
-      var matchesSpecies = state.species === "ALL" || card.getAttribute("data-species") === state.species;
+      var cardSpecies = card.getAttribute("data-species") || "";
+      var matchesSpecies = state.species === "ALL" || cardSpecies.indexOf(state.species) !== -1;
       var matchesType = state.type === "ALL" || card.getAttribute("data-type") === state.type;
       var matchesOrigin = state.origin === "ALL" || card.getAttribute("data-origin") === state.origin;
+      var matchesNew = state.isNew === "ALL" || card.getAttribute("data-new") === state.isNew;
       var matchesQuery = !q || card.getAttribute("data-search").indexOf(q) !== -1;
-      var show = matchesSpecies && matchesType && matchesOrigin && matchesQuery;
+      var show = matchesSpecies && matchesType && matchesOrigin && matchesNew && matchesQuery;
       card.style.display = show ? "" : "none";
       if (show) visible++;
     });
@@ -139,16 +151,29 @@
     gridBuilt = true;
     render();
     initReveal();
+    renderNewArrivals();
+  }
+
+  function renderNewArrivals() {
+    var section = document.getElementById("newArrivals");
+    var newGrid = document.getElementById("newArrivalsGrid");
+    if (!section || !newGrid) return;
+    var newItems = PRODUCTS.filter(function (p) { return p.isNew; });
+    if (!newItems.length) { section.hidden = true; return; }
+    newGrid.innerHTML = newItems.map(cardTemplate).join("");
+    section.hidden = false;
+    initReveal();
   }
 
   function initFilters() {
-    function wirePillGroup(attr) {
+    function wirePillGroup(attr, stateKey) {
+      stateKey = stateKey || attr;
       var pills = document.querySelectorAll(".pill[data-" + attr + "]");
       pills.forEach(function (pill) {
         pill.addEventListener("click", function () {
           pills.forEach(function (p) { p.classList.remove("active"); });
           pill.classList.add("active");
-          state[attr] = pill.getAttribute("data-" + attr);
+          state[stateKey] = pill.getAttribute("data-" + attr);
           render();
         });
       });
@@ -156,6 +181,7 @@
     wirePillGroup("species");
     wirePillGroup("type");
     wirePillGroup("origin");
+    wirePillGroup("new", "isNew");
 
     var search = document.getElementById("searchInput");
     if (search) {
