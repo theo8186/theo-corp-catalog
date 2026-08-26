@@ -151,18 +151,6 @@
     gridBuilt = true;
     render();
     initReveal();
-    renderNewArrivals();
-  }
-
-  function renderNewArrivals() {
-    var section = document.getElementById("newArrivals");
-    var newGrid = document.getElementById("newArrivalsGrid");
-    if (!section || !newGrid) return;
-    var newItems = PRODUCTS.filter(function (p) { return p.isNew; });
-    if (!newItems.length) { section.hidden = true; return; }
-    newGrid.innerHTML = newItems.map(cardTemplate).join("");
-    section.hidden = false;
-    initReveal();
   }
 
   function initFilters() {
